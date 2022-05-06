@@ -6,6 +6,7 @@
     >
       ようこそ {{ username }} さん
     </p>
+    <VueRecordAudio @result="onResult" />
     <button
       v-if="loggedIn"
       class="button"
@@ -24,12 +25,17 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import VueRecord from '@codekraft-studio/vue-record'
+Vue.use(VueRecord)
+
 export default {
   name: 'IndexPage',
   computed: {
     username () {
       if (this.$auth.$state.user &&
           this.$auth.$state.user.name) {
+        console.log('state', this.$auth.$state)
         return this.$auth.$state.user.name
       } else {
         return null
@@ -46,6 +52,10 @@ export default {
     },
     logout () {
       this.$auth.logout()
+    },
+    onResult (data) {
+      console.log('The blob data:', data)
+      console.log('Downloadable audio', window.URL.createObjectURL(data))
     }
   }
 }
