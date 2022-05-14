@@ -1,3 +1,12 @@
 {
-    "nuxt.isNuxtApp": false
+    "nuxt.isNuxtApp": false,
+    "[typescript]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.formatOnPaste": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true, // eslintでリント
+        },
+      },
+      "eslint.format.enable": true, // ←なくてもいいかも？
 }

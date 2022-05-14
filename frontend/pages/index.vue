@@ -53,9 +53,21 @@ export default {
     logout () {
       this.$auth.logout()
     },
-    onResult (data) {
+    async onResult (data) {
       console.log('The blob data:', data)
       console.log('Downloadable audio', window.URL.createObjectURL(data))
+
+      const uploadBlobData = new FormData()
+      uploadBlobData.append('data', new Blob([data], { type: 'video/webm' }))
+
+      const url = 'http://localhost:8080/record'
+      const response = await this.$axios.$post(url, uploadBlobData, {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      })
+
+      console.log('response', response)
     }
   }
 }
